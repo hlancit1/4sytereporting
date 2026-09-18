@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4Syte Funding - Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF8F4;
+    --paper-raised: #FFFFFF;
+    --ink: #14283D;
+    --ink-soft: #5E7B93;
+    --rule: #DDE3E9;
+    --rule-strong: #14283D;
+    --brass: #D9A441;
+    --brass-soft: #F0DDB0;
+    --teal: #1F4E6B;
+    --red: #B23B2E;
+    --green: #2F6B4F;
+    --radius: 10px;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .num, input[type="number"], .figure{
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .serif{
+    font-family: "Poppins", -apple-system, sans-serif;
+  }
+
+  header{
+    padding: 28px clamp(20px, 5vw, 64px);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .header-inner{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  header .logo{
+    height: 44px;
+    width: auto;
+  }
+  header h1{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: clamp(22px, 2.6vw, 30px);
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+
+  main{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 64px) 60px;
+  }
+
+  /* --- Client Deal (top, mandatory) --- */
+  section.deal-inputs{
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    margin-top: 32px;
+    box-shadow: 0 1px 4px rgba(20,40,61,0.06);
+  }
+  section.deal-inputs h2{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  section.deal-inputs .note{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+  .input-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px 32px;
+  }
+  .input-item label{
+    display:block;
+    font-size: 12.5px;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .input-item .sub{
+    display:block;
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .input-item .field-row{
+    display:flex;
+    align-items: baseline;
+    gap: 6px;
+    border-bottom: 1px solid var(--ink-soft);
+    padding-bottom: 4px;
+  }
+  .input-item input[type="number"]{
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    color: var(--ink);
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    padding: 2px 0;
+  }
+  .input-item input[type="number"]:focus{ outline: none; }
+  .input-item .unit{
+    font-size: 13px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .toggle-row{
+    display:flex; align-items:center; gap:10px;
+    margin-top: 4px;
+  }
+  .toggle-row input[type="checkbox"]{
+    width: 16px; height: 16px;
+    accent-color: var(--teal);
+  }
+  .toggle-row label{ font-size: 13.5px; color: var(--ink); font-weight: 400; }
+
+  button#reset{
+    margin-top: 20px;
+    background: none;
+    border: 1px solid var(--ink-soft);
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    padding: 9px 16px;
+    cursor: pointer;
+    border-radius: 999px;
+  }
+  button#reset:hover{
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  /* --- Deal Economics (main output) --- */
+  section.economics{
+    padding: 36px 0 0;
+  }
+  .headline{
+    margin-bottom: 24px;
+  }
+  .headline .label{
+    font-size: 12.5px;
+    color: var(--teal);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .headline .rate{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 1;
+    color: var(--brass);
+  }
+
+  .table-card{
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 4px 20px;
+    margin: 8px 0 24px;
+    box-shadow: 0 1px 3px rgba(20,40,61,0.06);
+  }
+  table.economics-table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.economics-table th{
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--teal);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 6px 8px;
+  }
+  table.economics-table th.r{ text-align: right; }
+  table.economics-table td{
+    padding: 9px 8px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14.5px;
+  }
+  table.economics-table td.r{ text-align: right; }
+  table.economics-table tr.profit td{
+    font-weight: 700;
+    color: var(--green);
+    font-size: 15.5px;
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  table.economics-table tr.profit.negative td{ color: var(--red); }
+
+  .profitability-summary{
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 3px rgba(20,40,61,0.06);
+  }
+  .profitability-summary .row{
+    display:flex; justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .profitability-summary .row:last-child{ border-bottom: none; }
+  .profitability-summary .row .val{
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    color: var(--brass);
+  }
+
+  .bar-chart{
+    margin: 0 0 32px;
+  }
+  .bar-chart h3{
+    font-size: 12px;
+    color: var(--teal);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  .bar-track{
+    width: 100%;
+    height: 34px;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    display: flex;
+    overflow: hidden;
+  }
+  .bar-seg{ height: 100%; }
+  .bar-legend{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .bar-legend .item{ display:flex; align-items:center; gap:6px; }
+  .swatch{ width: 10px; height: 10px; display:inline-block; }
+
+  footer{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px clamp(20px, 5vw, 64px) 48px;
+    border-top: 1px solid var(--rule);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img src="4syte-logo.png" alt="4Syte" class="logo"
+         onerror="this.onerror=null;this.src='https://4syte.co.uk/wp-content/uploads/2022/04/4syte-logo.png';">
+    <h1>4Syte Funding - Pricing</h1>
+  </div>
+</header>
+
+<main>
+
+  <section class="deal-inputs">
+    <h2>Client Deal</h2>
+    <p class="note">Enter the deal terms to see its full economics below.</p>
+    <div class="input-grid">
+      <div class="input-item">
+        <label>Facility size / expected book</label>
+        <div class="field-row">
+          <span class="unit">£</span>
+          <input type="number" id="facilitySize" value="5000000" step="100000">
+        </div>
+      </div>
+      <div class="input-item">
+        <label>Target margin</label>
+        <div class="field-row">
+          <input type="number" id="margin" value="0" step="0.01">
+          <span class="unit">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="toggle-row">
+      <input type="checkbox" id="includeOverhead" checked>
+      <label for="includeOverhead">Include overhead &mdash; full breakeven (uncheck for marginal, incremental-deal pricing)</label>
+    </div>
+    <button id="reset">Reset to defaults</button>
+  </section>
+
+  <section class="economics">
+    <div class="headline">
+      <div class="label">Recommended client rate</div>
+      <div class="rate figure" id="headlineRate">12.38%</div>
+    </div>
+
+    <div class="table-card">
+      <table class="economics-table">
+        <thead>
+          <tr><th>Deal economics &amp; profitability</th><th class="r">% p.a.</th><th class="r">£ p.a.</th></tr>
+        </thead>
+        <tbody id="dealEconomicsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="profitability-summary">
+      <div class="row"><span>Net profit margin (% of revenue)</span><span class="val" id="profitMarginPct">&mdash;</span></div>
+      <div class="row"><span>Return on facility (net profit &divide; facility size)</span><span class="val" id="profitOnFacility">&mdash;</span></div>
+    </div>
+
+    <div class="bar-chart">
+      <h3>Rate composition</h3>
+      <div class="bar-track" id="barTrack"></div>
+      <div class="bar-legend" id="barLegend"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Cost of funds (5.173%), direct operating costs (0.245%), commissions (1.582%) and overhead (4.646%) are fixed, drawn from the 'Actual' reporting pack, YTD Jan&ndash;Jul 2026 actuals annualised on a run-rate basis (avg. loan book &pound;132.9m). The credit loss figure is a modelled assumption, not the reported bad-debt provision, and should be reviewed before use. This tool performs no data submission &mdash; all figures stay in your browser.
+</footer>
+
+<script>
+(function(){
+  const FIXED = {
+    costOfFunds: 5.173,
+    directOpex: 0.245,
+    commissions: 1.582,
+    overhead: 4.646,
+    creditLoss: 0.733
+  };
+
+  const els = {
+    facilitySize: document.getElementById('facilitySize'),
+    margin: document.getElementById('margin'),
+    includeOverhead: document.getElementById('includeOverhead'),
+  };
+
+  const defaults = {
+    facilitySize: 5000000,
+    margin: 0, includeOverhead: true
+  };
+
+  function num(el){ const v = parseFloat(el.value); return isNaN(v) ? 0 : v; }
+  function fmtPct(v, dp){ dp = dp===undefined?2:dp; return v.toFixed(dp) + '%'; }
+  function fmtGBP(v){
+    const abs = Math.abs(v).toLocaleString(undefined,{maximumFractionDigits:0});
+    return v < 0 ? '(£' + abs + ')' : '£' + abs;
+  }
+
+  const COLORS = {
+    fund: '#35545A',
+    opex: '#7D9490',
+    overhead: '#B9C6C2',
+    credit: '#8C3B2E',
+    margin: '#A9762F'
+  };
+
+  function render(){
+    const costOfFunds = FIXED.costOfFunds;
+    const directOpex = FIXED.directOpex;
+    const commissions = FIXED.commissions;
+    const overhead = FIXED.overhead;
+    const includeOverhead = els.includeOverhead.checked;
+    const creditLoss = FIXED.creditLoss;
+    const margin = num(els.margin);
+    const facility = num(els.facilitySize);
+
+    const opexSubtotal = directOpex + commissions + (includeOverhead ? overhead : 0);
+    const breakeven = costOfFunds + opexSubtotal + creditLoss;
+    const recommended = breakeven + margin;
+
+    document.getElementById('headlineRate').textContent = fmtPct(recommended);
+
+    const gbp = function(rate){ return facility * rate / 100; };
+    const dealRows = [
+      ['Revenue (at recommended rate)', recommended, gbp(recommended)],
+      ['Cost of funds', -costOfFunds, -gbp(costOfFunds)],
+      ['Direct operating costs', -directOpex, -gbp(directOpex)],
+      ['Commissions paid', -commissions, -gbp(commissions)],
+    ];
+    if (includeOverhead) dealRows.push(['Overhead (indirect costs)', -overhead, -gbp(overhead)]);
+    dealRows.push(['Credit loss assumption', -creditLoss, -gbp(creditLoss)]);
+    dealRows.push(['Net profit', margin, gbp(margin)]);
+
+    const tbody = document.getElementById('dealEconomicsBody');
+    tbody.innerHTML = '';
+    dealRows.forEach(function(r, i){
+      const tr = document.createElement('tr');
+      const isLast = (i === dealRows.length - 1);
+      if (isLast) tr.className = 'profit' + (r[2] < 0 ? ' negative' : '');
+      tr.innerHTML = '<td>'+r[0]+'</td><td class="r figure">'+fmtPct(r[1])+'</td><td class="r figure">'+fmtGBP(r[2])+'</td>';
+      tbody.appendChild(tr);
+    });
+
+    const marginOfRevenue = recommended !== 0 ? (margin / recommended * 100) : 0;
+    document.getElementById('profitMarginPct').textContent = fmtPct(marginOfRevenue);
+    document.getElementById('profitOnFacility').textContent = fmtPct(margin);
+
+    // Bar chart
+    const track = document.getElementById('barTrack');
+    const legend = document.getElementById('barLegend');
+    track.innerHTML = '';
+    legend.innerHTML = '';
+    const segs = [
+      ['Cost of funds', costOfFunds, COLORS.fund],
+      ['Opex', directOpex + commissions, COLORS.opex],
+    ];
+    if (includeOverhead) segs.push(['Overhead', overhead, COLORS.overhead]);
+    segs.push(['Credit loss', creditLoss, COLORS.credit]);
+    segs.push(['Margin', margin, COLORS.margin]);
+    const total = segs.reduce(function(s,x){ return s + Math.max(x[1],0); }, 0) || 1;
+    segs.forEach(function(s){
+      const pct = Math.max(s[1],0) / total * 100;
+      const div = document.createElement('div');
+      div.className = 'bar-seg';
+      div.style.width = pct + '%';
+      div.style.background = s[2];
+      track.appendChild(div);
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = '<span class="swatch" style="background:'+s[2]+'"></span>'+s[0]+' &middot; '+fmtPct(s[1]);
+      legend.appendChild(item);
+    });
+  }
+
+  Object.keys(els).forEach(function(k){
+    const el = els[k];
+    el.addEventListener('input', render);
+    if (el.type === 'checkbox') el.addEventListener('change', render);
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    Object.keys(defaults).forEach(function(k){
+      const el = els[k];
+      if (el.type === 'checkbox') el.checked = defaults[k];
+      else el.value = defaults[k];
+    });
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
